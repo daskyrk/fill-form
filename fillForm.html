@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+  <head>
+    <title>fillForm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="author" content="Jun" />
+    <meta name="Copyright" content="Jun" />
+    <meta name="description" content="auto fillForm" />
+    <style type="text/css">
+      a {
+        cursor: move;
+        display: block;
+        height: 56px;
+        width: 290px;
+        margin: 25px 0 0;
+        background: url('https://swenzhang.baidu.com/css/pjt/site/page/imgs/tools/drop-ok-btn.png?v=4104') no-repeat 0 0;
+      }
+      a:hover {
+        position: relative;
+        top: 1px;
+      }
+      a span {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a href='javascript:(function(){var e=g(document,"form"),d=0,l=e.length;var a={};var q=p();var b=h();function n(i){return document.getElementById(i)}function g(r,i){return r.getElementsByTagName(i)}function k(r){var i=r!=null&&r.length;return typeof i=="number"&&i>=0&&i<=(Math.pow(2,53)-1)}function m(i){if(Object.keys){return Object.keys(i)}}function j(u,v){var r,t;if(k(u)){for(r=0,t=u.length;r<t;r++){v(u[r],r,u)}}else{var s=m(u);for(r=0,t=s.length;r<t;r++){v(u[s[r]],s[r],u)}}return u}function p(){var i=document.createElement("div");i.id="fillForm_mask";var r=document.createElement("div");r.id="fillForm_modal";r.innerHTML="<h2>更新已存储数据还是恢复当前表单数据？</h2>"+"<button id=\"update_formData\">更新</button><button id=\"restore_formData\">恢复</button><button id=\"cancel_formData\">取消</button>";btns=g(r,"button");btns[0].style.left="10%";btns[1].style.left="40%";btns[2].style.right="10%";i.appendChild(r);return i}function h(){var i=document.createElement("style"),r="#fillForm_mask{background-color:rgba(80,80,80,0.6);position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:9999;} #fillForm_modal{background-color:rgba(200,200,200,1);position:absolute;top:50%;margin-left:-20%;margin-top:-9%;left:50%;width:40%;height:18%;} #fillForm_modal>h2{margin-top:10%;text-align:center;} #fillForm_modal>button{position:absolute;bottom:25%;width:20%;height:25%;border-radius:5px;border:none;background-color:#eee;font-size:16px;transition-duration:0.2s;transition-timing-function:ease-out;} #fillForm_modal>button:hover{box-shadow:0px 0px 10px 1px #666;}";i.type="text/css";if(i.styleSheet){i.styleSheet.cssText=r}else{i.innerHTML=r}return i}function f(i){document.head.removeChild(b);document.body.removeChild(i);for(var s=0;s<l;s++){var r=e[s];r.style.outline="none";r.style.boxShadow="none";r.onclick=null;r.onmouseover=null;r.onmouseout=null}}function c(i){return{INPUT:g(i,"input"),SELECT:g(i,"select"),TEXTAREA:g(i,"textarea")}}function o(r){var i={};j(r,function(s){j(s,function(t){i[t.nodeName]===undefined&&(i[t.nodeName]={});i[t.nodeName][t.type]===undefined&&(i[t.nodeName][t.type]={});!t.name.length&&(t.name="noName");i[t.nodeName][t.type][t.name]===undefined&&(i[t.nodeName][t.type][t.name]=[]);i[t.nodeName][t.type][t.name].push({href:t.href,value:t.value,checked:t.checked,selectedIndex:t.selectedIndex})})});return i}return(function(){for(;d<l;d++){var i=e[d];i.style.outline="1px solid red";i.onmouseover=function(){this.style.boxShadow="0px 0px 16px 4px #888"};i.onclick=function(){document.head.appendChild(b);document.body.appendChild(q);q.onclick=function(u){u.stopPropagation();f(q)};var t=this.id||this.name;var r=c(this);var s=o(r);console.info("选择的form:",t);n("update_formData").onclick=function(u){u.stopPropagation();a[t]=s;if(window.localStorage){console.info(a);localStorage.setItem("formsData",JSON.stringify(a))}else{Cookie.write("formsData",a)}f(q)};n("restore_formData").onclick=function(y){y.stopPropagation();var w=window.localStorage?localStorage.getItem("formsData"):Cookie.read("formsData");var u=w===null?null:JSON.parse(w)[t];if(!u){alert("没有该表单数据，请先填写后保存！");f(q);return}var x=c(i);var v="";var z=false;j(x,function(C,B){var A=u[B];j(C,function(E,D,F){v=E.name.length?E.name:"noName";sameName=A[E.type][v];sameName&&(z=sameName[0]);if(z){E.value=z.value;E.checked=z.checked;E.selectedIndex=z.selectedIndex}sameName.shift()})});f(q)};n("cancel_formData").onclick=function(u){u.stopPropagation();f(q)}};i.onmouseout=function(){this.style.boxShadow="none"}}})()})();'><span>fillForm</span></a>
+  </body>
+</html>
