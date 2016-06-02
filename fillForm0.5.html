@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+  <head>
+    <title>fillForm</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="zh-CN" />
+    <meta name="author" content="Jun" />
+    <meta name="Copyright" content="Jun" />
+    <meta name="description" content="auto fillForm" />
+    <style type="text/css">
+      a {
+        cursor: move;
+        display: block;
+        height: 56px;
+        width: 290px;
+        margin: 25px 0 0;
+        background: url('https://swenzhang.baidu.com/css/pjt/site/page/imgs/tools/drop-ok-btn.png?v=4104') no-repeat 0 0;
+      }
+      a:hover {
+        position: relative;
+        top: 1px;
+      }
+      a span {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <a href='javascript:(function(){var g=j(document,"form"),q=0,l=g.length,d,p,s;if(window.__fillForm__){d=window.__fillForm__.forms;p=window.__fillForm__.mask;s=window.__fillForm__.style}else{d={};p=h();s=e()}function n(i){return document.getElementById(i)}function j(u,i){return u.getElementsByTagName(i)}function f(u){var i=u!=null&&u.length;return typeof i=="number"&&i>=0&&i<=(Math.pow(2,53)-1)}function a(i){if(Object.keys){return Object.keys(i)}}function c(x,y){var u,w;if(f(x)){for(u=0,w=x.length;u<w;u++){y(x[u],u,x)}}else{var v=a(x);for(u=0,w=v.length;u<w;u++){y(x[v[u]],v[u],x)}}return x}function h(){console.info("getMask执行");var i=document.createElement("div");i.id="fillForm_mask";var u=document.createElement("div");u.id="fillForm_modal";u.innerHTML="<h2>更新已存储数据还是恢复当前表单数据？</h2><input type=\"text\" id=\"restore_formData_input\"></input>"+"<button id=\"update_formData\">更新</button><button id=\"restore_formData_cache\">缓存恢复</button><button id=\"restore_formData_json\">数据恢复</button><button id=\"cancel_formData\">取消</button>";btns=j(u,"button");btns[0].style.left="7%";btns[1].style.left="29%";btns[2].style.left="52%";btns[3].style.right="7%";i.appendChild(u);return i}function e(){console.info("getStyle执行");var i=document.createElement("style"),u="#fillForm_mask{background-color:rgba(80,80,80,0.6);position:fixed;top:0px;left:0px;width:100%;height:100%;z-index:9999;} #fillForm_modal{background-color:rgba(200,200,200,1);position:absolute;top:50%;margin-left:-20%;margin-top:-9%;left:50%;width:40%;height:18%;} #fillForm_modal>h2{position:relative;text-align:center;top:10%;margin:0 auto;} #fillForm_modal>input{position:absolute;left:30%;top:40%;width:40%;height:10%;border-radius:5px;background-color:#eee} #fillForm_modal>button{position:absolute;bottom:15%;width:18%;height:20%;border-radius:5px;border:none;background-color:#eee;font-size:16px;transition-duration:0.2s;transition-timing-function:ease-out;} #fillForm_modal>button:hover{box-shadow:0px 0px 10px 1px #666;}";i.type="text/css";i.media="screen";if(i.styleSheet){i.styleSheet.cssText=u}else{i.innerHTML=u}return i}function t(){document.head.removeChild(s);document.body.removeChild(p);for(var u=0;u<l;u++){var i=g[u];i.style.outline="none";i.style.boxShadow="none";i.onclick=null;i.onmouseover=null;i.onmouseout=null}}function m(i){return{INPUT:j(i,"input"),SELECT:j(i,"select"),TEXTAREA:j(i,"textarea")}}function k(u){var i={};c(u,function(v){c(v,function(w){i[w.nodeName]===undefined&&(i[w.nodeName]={});i[w.nodeName][w.type]===undefined&&(i[w.nodeName][w.type]={});!w.name.length&&(w.name="noName");i[w.nodeName][w.type][w.name]===undefined&&(i[w.nodeName][w.type][w.name]=[]);i[w.nodeName][w.type][w.name].push({href:w.href,value:w.value,checked:w.checked,selectedIndex:w.selectedIndex});w.name==="noName"&&w.removeAttribute("name")})});return i}function o(w,y){if(window.localStorage){var v=localStorage.getItem("fillForm_formsData");var u={};try{v&&(u=JSON.parse(v))}catch(x){alert("已缓存数据不正确，请清空缓存后重试！");throw new SyntaxError("缓存数据解析错误")}u[y]=w;var i=JSON.stringify(u);console.info(u);localStorage.setItem("fillForm_formsData",i)}else{Cookie.read("fillForm_formsData");Cookie.write("fillForm_formsData",u)}window.__fillForm__={mask:p,style:s,forms:u};window.__fillFormJson__=i;console.info("数据json字符串已保存到window.__fillFormJson__中")}function b(){return window.localStorage?localStorage.getItem("fillForm_formsData"):Cookie.read("fillForm_formsData")}function r(v,i){var w=m(v);var u="";var x=false;c(w,function(A,z){var y=i[z];c(A,function(C,B,D){u=C.name.length?C.name:"noName";sameName=y[C.type][u];sameName&&(x=sameName[0])&&sameName.shift();if(x){C.value=x.value;C.checked=x.checked;C.selectedIndex=x.selectedIndex}})})}return(function(){for(;q<l;q++){var i=g[q];i.style.outline="1px solid red";i.onmouseover=function(){this.style.boxShadow="0px 0px 16px 4px #888"};i.onclick=function(){document.head.appendChild(s);document.body.appendChild(p);p.onclick=function(v){v.stopPropagation();t()};var u=this.id||this.name;console.info("选择的form:",u);n("update_formData").onclick=function(x){x.stopPropagation();var v=m(i);var w=k(v);o(w,u);t()};n("restore_formData_cache").onclick=function(x){x.stopPropagation();var w=b();var v=w===null?null:JSON.parse(w)[u];if(!v){alert("没有该表单数据，请先填写后保存！");t();return}r(i,v);t()};n("restore_formData_input").onclick=function(v){v.stopPropagation()};n("restore_formData_json").onclick=function(y){y.stopPropagation();var z=n("restore_formData_input");var x=z.value;try{var w=JSON.parse(x.slice(1,x.length-1))}catch(y){z.style.border="1px solid red";alert("json字符串数据不正确！");throw new SyntaxError("json数据不正确！")}var v=w[u];if(!v){alert("没有该表单数据，请先填写后保存！");t();return}r(i,v);t()};n("cancel_formData").onclick=function(v){v.stopPropagation();t()}};i.onmouseout=function(){this.style.boxShadow="none"}}})()})();'><span>fillForm</span></a>
+  </body>
+</html>
